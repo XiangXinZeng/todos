@@ -1,4 +1,19 @@
 .App {
   font-family: sans-serif;
   text-align: center;
+  width: 80%;
+  margin: auto;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li {
+  margin: 0;
+}
+
+ul button {
+  margin-left: 10px;
+  color: red;
 }
