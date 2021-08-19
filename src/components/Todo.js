@@ -1,7 +1,7 @@
 import { useTodoContext } from "./TodoContext";
 
 export default ({ todo }) => {
-  const { removeTodo, toggleTodo } = useTodoContext();
+  const { removeTodo, toggleTodo, findTodo } = useTodoContext();
   return (
     <li>
       <input
@@ -12,7 +12,8 @@ export default ({ todo }) => {
       <span style={{ textDecoration: todo.done ? "line-through" : null }}>
         {todo.title}
       </span>
-      <button onClick={() => removeTodo(todo.id)}>X</button>
+      <button onClick={() => findTodo(todo.id)}>Edit</button>
+      <button onClick={() => removeTodo(todo.id)}>Del</button>
     </li>
   );
 };

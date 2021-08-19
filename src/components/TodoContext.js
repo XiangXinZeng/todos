@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { v4 } from "uuid";
 
 const initialTodos = [
+  { id: v4(), title: "Explore Azure", done: false },
   { id: v4(), title: "Learn React", done: true },
   { id: v4(), title: "Learn Redeux", done: false }
 ];
@@ -10,6 +11,8 @@ const TodoContext = createContext();
 
 const TodoProvider = ({ children }) => {
   const [todos, setTodos] = useState(initialTodos);
+  const [editingTodo, setEditingTodo] = useState(null);
+
   const addTodo = (title) => {
     setTodos([
       ...todos,
@@ -32,8 +35,30 @@ const TodoProvider = ({ children }) => {
       )
     );
   };
+
+  const findTodo = (id) => {
+    const todo = todos.find((todo) => todo.id === id);
+    setEditingTodo(todo);
+  };
+
+  const updateTodoText = (updatedTodo) => {
+    setTodos(
+      todos.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo))
+    );
+    setEditingTodo(null);
+  };
   return (
-    <TodoContext.Provider value={{ todos, addTodo, removeTodo, toggleTodo }}>
+    <TodoContext.Provider
+      value={{
+        todos,
+        addTodo,
+        removeTodo,
+        toggleTodo,
+        editingTodo,
+        findTodo,
+        updateTodoText
+      }}
+    >
       {children}
     </TodoContext.Provider>
   );

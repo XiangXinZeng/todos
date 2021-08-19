@@ -4,16 +4,21 @@ import { useTodoContext } from "./TodoContext";
 export default () => {
   const [todo, setTodo] = useState("");
   const inputRef = useRef();
-  const { addTodo } = useTodoContext();
+  const { addTodo, editingTodo, updateTodoText } = useTodoContext();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTodo(todo);
+    editingTodo ? updateTodoText(editingTodo) : addTodo(todo);
     setTodo("");
   };
 
   useEffect(() => {
     //inputRef.current.focus();
   });
+
+  useEffect(() => {
+    editingTodo ? setTodo(editingTodo.title) : setTodo("");
+  }, [editingTodo]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -23,7 +28,7 @@ export default () => {
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
       />
-      <button type="submit"> Add </button>
+      <button type="submit">{editingTodo ? "Update" : "Add"}</button>
     </form>
   );
 };
