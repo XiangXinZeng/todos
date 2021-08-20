@@ -8,7 +8,9 @@ export default () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editingTodo ? updateTodoText(editingTodo) : addTodo(todo);
+    editingTodo
+      ? updateTodoText({ ...editingTodo, title: todo })
+      : addTodo(todo);
     setTodo("");
   };
 
